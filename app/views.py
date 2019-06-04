@@ -13,10 +13,10 @@ def file_list(request, year=None, month=None, day=None):
         url_date = datetime.date(year, month, day)
     else:
         url_date = None
-    for file in file_names:
+    for name in file_names:
         file_dict = {}
-        file_dict['name'] = file
-        file_data = os.stat('files/' + file)
+        file_dict['name'] = name
+        file_data = os.stat('files/' + name)
         file_dict['ctime'] = datetime.date.fromtimestamp(file_data.st_ctime)
         file_dict['mtime'] = datetime.date.fromtimestamp(file_data.st_mtime)
         if url_date is not None:
@@ -32,8 +32,8 @@ def file_list(request, year=None, month=None, day=None):
 
 
 def file_content(request, name):
-    with open('files/' + name, 'r') as file:
-        content = file.read()
+    with open('files/' + name, 'r') as f:
+        content = f.read()
     # Реализуйте алгоритм подготавливающий контекстные данные для шаблона по примеру:
     return render(
         request,
