@@ -32,11 +32,16 @@ def file_list(request, year=None, month=None, day=None):
 
 
 def file_content(request, name):
-    with open('files/' + name, 'r') as f:
-        content = f.read()
-    # Реализуйте алгоритм подготавливающий контекстные данные для шаблона по примеру:
+    content = ''
+    try:
+        with open('files/' + name, 'r') as f:
+            content = f.read()
+            temp_path = 'file_content.html'
+    except:
+        temp_path = 'error.html'
+
     return render(
         request,
-        'file_content.html',
+        temp_path,
         context={'file_name': name, 'file_content': content}
     )
